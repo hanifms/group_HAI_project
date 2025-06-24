@@ -1,7 +1,3 @@
-Here’s a **comprehensive set of notes** based on the class transcript:
-
----
-
 # **Web Application Development Project & Assessment – Comprehensive Notes**
 
 ---
