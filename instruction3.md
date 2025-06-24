@@ -15,6 +15,16 @@ This project uses Laravel and has two main folders: `original` and `enhanced`. A
     This will set up the test database environment.
     Check if the database 'mytravelv2_testing' has been created in phpmyadmin dashboard 
 
+2. **Generate App Key for Testing Environment**
+
+    Generate a secure application key for your testing environment:
+
+    ```bash
+    php artisan key:generate --env=testing
+    ```
+
+    This ensures your application encryption is properly configured for tests.
+
 3. **Run the Tests**
 
     Still inside the `enhanced` folder, run:
