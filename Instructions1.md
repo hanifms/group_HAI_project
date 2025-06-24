@@ -1,6 +1,6 @@
 # Laravel To-Do App Project
 
-This repository contains our collaborative Laravel To-Do App project. This `README.md` will guide you on how to set up the project and, most importantly, how to work effectively with Git and GitHub in a team environment using branches.
+This repository contains our collaborative Laravel project. This `instructions.md` will guide you on how to set up the project and, most importantly, how to work effectively with Git and GitHub in a team environment using branches.
 
 ---
 

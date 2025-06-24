@@ -1,0 +1,170 @@
+# **Web Application Development Project & Assessment – Comprehensive Notes**
+
+---
+
+## 🔹 **Individual Assignment**
+
+* Focus: Writing a report on **web application enhancement** based on a previous project.
+* Must include:
+
+  * Original project (can be individual or group).
+  * Enhancement of security features.
+  * Documentation and demonstration of enhancements.
+
+---
+
+## 🔹 **Project Presentation Guidelines**
+
+* **Case Study + Group Project** presentation required.
+* Avoid last week of exam week for scheduling.
+* Book an appointment with the lecturer ahead of time.
+* Presentations:
+
+  * Duration: **10 minutes**.
+  * Followed by a **Q\&A**.
+  * Accounts for **5%** of total marks.
+  * Each member will be questioned to avoid freeloading.
+
+---
+
+## 🔹 **Project Selection & Preparation**
+
+* Can use existing Laravel projects developed in class or elsewhere.
+* Group must agree on the selected project.
+* Must provide:
+
+  * Brief **description** of the project.
+  * Details of **enhancements**.
+
+---
+
+## 🔹 **Security Enhancements & Assessment**
+
+### 🔸 Initial Tasks:
+
+* **Scan** the existing project for vulnerabilities.
+* Identify what needs to be fixed.
+* After fixing, **re-scan** to validate improvements (expect “no risk” or “low confidence” issues only).
+
+### 🔸 Areas of Focus:
+
+1. **Input Validation & CSRF Protection**:
+
+   * Use Laravel’s CSRF protection (`@csrf` directive).
+   * Sanitize and validate user input.
+
+2. **Encryption**:
+
+   * Default: Laravel uses SHA-256.
+   * Can be changed if needed (optional, for advanced users).
+
+3. **Authentication & Authorization**:
+
+   * Implement **RBAC (Role-Based Access Control)**.
+   * Different privileges for admin vs regular users.
+   * Must apply at **database level** and **application logic**.
+
+4. **Database Security**:
+
+   * Use Laravel or PHP code to create users.
+   * Assign appropriate privileges.
+   * Avoid manually adding users to MySQL.
+
+5. **Server Hardening**:
+
+   * Configure server (e.g., `httpd.conf`).
+   * Choose a **dedicated demo machine** for testing & demonstration.
+
+6. **Cross-Site Scripting (XSS)**:
+
+   * Prevent through input sanitization and escaping outputs.
+
+7. **Audit Trails & Monitoring**:
+
+   * Ensure visibility of who did what in the system.
+
+---
+
+## 🔹 **Documentation Requirements**
+
+* **Use Markdown** for report:
+
+  * `#` for headings.
+  * Use tables, images, code blocks.
+* **Include references** (books, handouts, websites).
+* Structure:
+
+  * One repo with two folders:
+
+    * `original/`
+    * `enhanced/`
+  * Demonstrate **before-and-after** enhancement clearly.
+
+---
+
+## 🔹 **GitHub Workflow (Collaboration)**
+
+* Use **branching strategy**:
+
+  1. Group leader pushes original project to master.
+  2. Members create branches, work individually.
+  3. Merge back after testing and resolving conflicts.
+* Group leader acts as the **gatekeeper** during merges.
+
+---
+
+## 🔹 **Teamwork & Accountability**
+
+* Use **weekly progress reports**.
+* Group leaders should **not clean up** all the mess — only oversee.
+* For inactive members:
+
+  * Reach out (WhatsApp, etc.).
+  * If unresponsive, send email and **CC lecturer**.
+  * Continue work independently.
+* **Peer evaluations** will be conducted to assess contributions.
+* Lecturer will verify claims during presentations.
+
+---
+
+## 🔹 **Exam (Final Assessment)**
+
+* Format: **Paper-based**.
+* Duration: **1 hour**.
+* Structure:
+
+  * **Part A**: 8 short answer questions.
+  * **Part B**: Case-based scenarios.
+* Requirements:
+
+  * Use **pens only**, no pencils.
+  * Bring sufficient **stationery backups**.
+  * No sharing or leaving the seat.
+
+---
+
+## 🔹 **General Reminders**
+
+* Lecturer will not be teaching this course next semester.
+* Use **MS Teams group chat** for all questions.
+
+  * Avoid personal DMs.
+  * Public questions help others too.
+* Incorporate this assignment into your **professional portfolio**.
+* Report and demo **must be synchronized**:
+
+  * If it's in the report, it must be in the demo.
+  * No standalone features or unreported enhancements.
+
+---
+
+## 🔹 **Key Takeaways**
+
+* Be proactive and organized.
+* Respect deadlines and team agreements.
+* Develop real-world skills: version control, documentation, server hardening, security scanning.
+* Ensure personal accountability and group transparency.
+
+---
+
+Let me know if you'd like this in **PDF**, **Markdown**, or **PowerPoint** format!
