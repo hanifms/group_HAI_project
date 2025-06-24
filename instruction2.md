@@ -42,6 +42,8 @@ Each of us has a set of vulnerabilities to investigate, understand, and fix.
     * **Action:** This is a high-impact fix. Implement a Content Security Policy (CSP) header. This is a powerful defense against XSS and data injection. Start with a strict policy and gradually relax it as needed for your application. Laravel allows setting this via middleware. The report highlights `http://127.0.0.1:8000/sitemap.xml` as an example affected URL.
 2.  **Overall PR Merging & Final Report Compilation:**
     * **Action:** I will be responsible for reviewing and merging Pull Requests from Arman and Iz'aan into the `main` branch. Also, I will compile the final report document, integrating everyone's findings and fixes.
+3.  **Create Tests**
+    * **Action** I will be creating tests to ease workflow and to make sure the website does not break
 
 ### **Arman**
 
