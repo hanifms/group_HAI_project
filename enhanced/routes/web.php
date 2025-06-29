@@ -10,6 +10,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+// Testing routes for Prevent MIME Sniffing (display raw text instead of executing JavaScript)
+Route::get('/malicious-file', function () {
+    return response()->file(public_path('malicious-file.js'), [
+        'Content-Type' => 'text/plain', // Incorrect MIME type
+    ]);
+});
+
+
 // Public Travel Package Routes - accessible to guests and authenticated users
 Route::get('/travel-packages', [App\Http\Controllers\User\TravelController::class, 'index'])->name('travel-packages.index');
 Route::get('/travel-packages/{travelPackage}', [App\Http\Controllers\User\TravelController::class, 'show'])->name('travel-packages.show');
