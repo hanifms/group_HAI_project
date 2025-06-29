@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\URL;
 use Carbon\Carbon;
 use App\Http\Middleware\PreventClickjacking;
 use App\Http\Middleware\PreventMIMESniffing;
+use App\Http\Middleware\RemoveXPoweredByHeader;
+
 
 
 /**
@@ -71,6 +73,10 @@ class AppServiceProvider extends ServiceProvider
 
         // Apply PreventMIMESniffing middleware globally to 'web' routes group
         $this->app['router']->pushMiddlewareToGroup('web', PreventMIMESniffing::class);
+
+
+        // Remove X-Powered-By header
+        $this->app['router']->pushMiddlewareToGroup('web', RemoveXPoweredByHeader::class);
 
         // Keep the rest of your existing code intact...
         if (config('app.env') === 'production') {
