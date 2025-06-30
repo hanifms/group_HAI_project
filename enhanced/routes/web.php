@@ -11,6 +11,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 //Routing for robots.txt 
 Route::get('/robots.txt', function () {
     return response("User-agent: *\nDisallow:", 200)
@@ -21,6 +22,28 @@ Route::get('/sitemap.xml', function () {
     return response('<?xml version="1.0"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>', 200)
         ->header('Content-Type', 'application/xml');
 });
+
+
+// CSP Violation Reporting
+Route::post('/csp-report', function (Illuminate\Http\Request $request) {
+    $violation = $request->json()->all();
+
+    // Log CSP violations for debugging
+    if (app()->environment('local')) {
+        \Log::warning('CSP Violation Report', [
+            'document-uri' => $violation['document-uri'] ?? 'unknown',
+            'violated-directive' => $violation['violated-directive'] ?? 'unknown',
+            'blocked-uri' => $violation['blocked-uri'] ?? 'unknown',
+            'line-number' => $violation['line-number'] ?? 'unknown',
+            'column-number' => $violation['column-number'] ?? 'unknown',
+            'source-file' => $violation['source-file'] ?? 'unknown',
+            'user-agent' => $request->header('User-Agent'),
+            'full-report' => $violation,
+        ]);
+    }
+
+    return response('', 204); // No Content
+})->middleware('throttle:60,1');
 
 
 // Public Travel Package Routes - accessible to guests and authenticated users

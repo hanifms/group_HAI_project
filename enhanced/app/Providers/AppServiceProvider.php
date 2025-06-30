@@ -39,6 +39,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton('security.helper', function ($app) {
             return new \App\Helpers\SecurityHelper();
         });
+
+        // Register CSP helper
+        $this->app->singleton('csp.helper', function ($app) {
+            return new \App\Helpers\CspHelper();
+        });
     }
 
     /**
@@ -138,6 +143,21 @@ class AppServiceProvider extends ServiceProvider
         // User role check directive
         Blade::if('user', function () {
             return auth()->check() && !auth()->user()->isAdmin();
+        });
+
+        // CSP nonce directive for inline scripts
+        Blade::directive('cspNonce', function () {
+            return "<?php echo app('csp.helper')::nonceAttribute(); ?>";
+        });
+
+        // CSP nonce value only
+        Blade::directive('cspNonceValue', function () {
+            return "<?php echo app('csp.helper')::nonce(); ?>";
+        });
+
+        // Check if CSP is enabled
+        Blade::if('cspEnabled', function () {
+            return app('csp.helper')::isEnabled();
         });
     }
 
