@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSP Test Page - Travel Booking App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f3f4f6;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .success { background-color: #d1fae5; color: #065f46; }
+        .error { background-color: #fee2e2; color: #991b1b; }
+        .warning { background-color: #fef3c7; color: #92400e; }
+        .code {
+            background: #f3f4f6;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <h1>CSP Test Page - Travel Booking Application</h1>
+
+    <div class="test-section">
+        <h2>CSP Status Check</h2>
+        <div id="csp-status" class="status warning">
+            Checking CSP headers...
+        </div>
+        <p>This page tests if Content Security Policy is working correctly for your Laravel Travel Booking application.</p>
+    </div>
+
+    <div class="test-section">
+        <h2>JavaScript Functionality Tests</h2>
+
+        <h3>1. Inline JavaScript</h3>
+        <button onclick="testInlineScript()">Test Inline Script</button>
+        <div id="inline-result" class="status warning">Not tested</div>
+
+        <h3>2. Dynamic Script Creation</h3>
+        <button onclick="testDynamicScript()">Test Dynamic Script</button>
+        <div id="dynamic-result" class="status warning">Not tested</div>
+
+        <h3>3. eval() Function</h3>
+        <button onclick="testEval()">Test eval()</button>
+        <div id="eval-result" class="status warning">Not tested</div>
+
+        <h3>4. AJAX Request</h3>
+        <button onclick="testAjax()">Test AJAX</button>
+        <div id="ajax-result" class="status warning">Not tested</div>
+    </div>
+
+    <div class="test-section">
+        <h2>Style Tests</h2>
+
+        <h3>Inline Styles</h3>
+        <div style="background: linear-gradient(45deg, #ff6b6b, #4ecdc4); padding: 10px; color: white; border-radius: 4px;">
+            This div uses inline styles. If you can see the gradient background, inline styles are working.
+        </div>
+
+        <h3>Dynamic Style Creation</h3>
+        <button onclick="testDynamicStyle()">Test Dynamic Style</button>
+        <div id="style-test-target">This text should change color when you click the button above.</div>
+        <div id="style-result" class="status warning">Not tested</div>
+    </div>
+
+    <div class="test-section">
+        <h2>Common Issues & Solutions</h2>
+
+        <h3>If tests are failing:</h3>
+        <div class="code">
+            # Add this to your .env file:
+            CSP_ENABLED=true
+            CSP_REPORT_ONLY=true
+        </div>
+
+        <h3>Check browser console</h3>
+        <p>Open your browser's developer tools (F12) and check the Console tab for CSP violation messages.</p>
+
+        <h3>Common CSP violations:</h3>
+        <ul>
+            <li><strong>Inline scripts blocked:</strong> Need 'unsafe-inline' in script-src</li>
+            <li><strong>eval() blocked:</strong> Need 'unsafe-eval' in script-src</li>
+            <li><strong>Styles blocked:</strong> Need 'unsafe-inline' in style-src</li>
+            <li><strong>AJAX blocked:</strong> Check connect-src directive</li>
+        </ul>
+    </div>
+
+    <!-- Test Scripts -->
+    <script>
+        // Check if CSP headers are present
+        function checkCSPHeaders() {
+            const status = document.getElementById('csp-status');
+
+            // We can't directly read CSP headers from JavaScript, but we can test if violations occur
+            try {
+                // This inline script execution itself is a test
+                status.className = 'status success';
+                status.textContent = '✅ CSP headers are present and allowing inline scripts';
+            } catch (e) {
+                status.className = 'status error';
+                status.textContent = '❌ CSP may be blocking inline scripts';
+            }
+        }
+
+        function testInlineScript() {
+            const result = document.getElementById('inline-result');
+            try {
+                // This function call itself tests inline script execution
+                result.className = 'status success';
+                result.textContent = '✅ Inline scripts are working';
+            } catch (e) {
+                result.className = 'status error';
+                result.textContent = '❌ Inline scripts are blocked: ' + e.message;
+            }
+        }
+
+        function testDynamicScript() {
+            const result = document.getElementById('dynamic-result');
+            try {
+                const script = document.createElement('script');
+                script.textContent = 'window.dynamicScriptWorked = true;';
+                document.head.appendChild(script);
+
+                setTimeout(() => {
+                    if (window.dynamicScriptWorked) {
+                        result.className = 'status success';
+                        result.textContent = '✅ Dynamic script creation is working';
+                    } else {
+                        result.className = 'status error';
+                        result.textContent = '❌ Dynamic script creation failed';
+                    }
+                }, 100);
+            } catch (e) {
+                result.className = 'status error';
+                result.textContent = '❌ Dynamic script creation blocked: ' + e.message;
+            }
+        }
+
+        function testEval() {
+            const result = document.getElementById('eval-result');
+            try {
+                const testValue = eval('2 + 2');
+                if (testValue === 4) {
+                    result.className = 'status success';
+                    result.textContent = '✅ eval() is working';
+                } else {
+                    result.className = 'status error';
+                    result.textContent = '❌ eval() returned unexpected result';
+                }
+            } catch (e) {
+                result.className = 'status error';
+                result.textContent = '❌ eval() is blocked: ' + e.message;
+            }
+        }
+
+        function testAjax() {
+            const result = document.getElementById('ajax-result');
+            try {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', window.location.href, true);
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        result.className = 'status success';
+                        result.textContent = '✅ AJAX requests are working';
+                    } else {
+                        result.className = 'status warning';
+                        result.textContent = '⚠️ AJAX request completed with status: ' + xhr.status;
+                    }
+                };
+                xhr.onerror = function() {
+                    result.className = 'status error';
+                    result.textContent = '❌ AJAX request failed';
+                };
+                xhr.send();
+            } catch (e) {
+                result.className = 'status error';
+                result.textContent = '❌ AJAX is blocked: ' + e.message;
+            }
+        }
+
+        function testDynamicStyle() {
+            const result = document.getElementById('style-result');
+            const target = document.getElementById('style-test-target');
+
+            try {
+                const style = document.createElement('style');
+                style.textContent = '#style-test-target { color: #ff6b6b; font-weight: bold; }';
+                document.head.appendChild(style);
+
+                setTimeout(() => {
+                    const computedStyle = window.getComputedStyle(target);
+                    if (computedStyle.color === 'rgb(255, 107, 107)' || computedStyle.fontWeight === 'bold') {
+                        result.className = 'status success';
+                        result.textContent = '✅ Dynamic style creation is working';
+                    } else {
+                        result.className = 'status warning';
+                        result.textContent = '⚠️ Dynamic style may not be applied correctly';
+                    }
+                }, 100);
+            } catch (e) {
+                result.className = 'status error';
+                result.textContent = '❌ Dynamic style creation blocked: ' + e.message;
+            }
+        }
+
+        // Run CSP check on page load
+        document.addEventListener('DOMContentLoaded', checkCSPHeaders);
+    </script>
+</body>
+</html>

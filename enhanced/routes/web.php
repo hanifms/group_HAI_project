@@ -10,6 +10,27 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// CSP Violation Reporting
+Route::post('/csp-report', function (Illuminate\Http\Request $request) {
+    $violation = $request->json()->all();
+
+    // Log CSP violations for debugging
+    if (app()->environment('local')) {
+        \Log::warning('CSP Violation Report', [
+            'document-uri' => $violation['document-uri'] ?? 'unknown',
+            'violated-directive' => $violation['violated-directive'] ?? 'unknown',
+            'blocked-uri' => $violation['blocked-uri'] ?? 'unknown',
+            'line-number' => $violation['line-number'] ?? 'unknown',
+            'column-number' => $violation['column-number'] ?? 'unknown',
+            'source-file' => $violation['source-file'] ?? 'unknown',
+            'user-agent' => $request->header('User-Agent'),
+            'full-report' => $violation,
+        ]);
+    }
+
+    return response('', 204); // No Content
+})->middleware('throttle:60,1');
+
 // Public Travel Package Routes - accessible to guests and authenticated users
 Route::get('/travel-packages', [App\Http\Controllers\User\TravelController::class, 'index'])->name('travel-packages.index');
 Route::get('/travel-packages/{travelPackage}', [App\Http\Controllers\User\TravelController::class, 'show'])->name('travel-packages.show');
