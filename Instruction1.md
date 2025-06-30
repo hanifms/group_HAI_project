@@ -43,8 +43,11 @@ Open the newly created `.env` file and configure your database connection and an
 
 ```bash
 php artisan migrate
-# Might not perlu but just in case: php artisan db:seed
+# Might not perlu but just in case: php artisan db:seed (perlu, run the seeds)
 ```
+
+I forgot, run npm install also
+then npm run dev
 
 ### 6\. Start the Development Server
 
@@ -65,7 +68,7 @@ if cannot run try npm run dev also on another terminal
 
   * **Hanif:** `Hanif`
   * **Arman:** `Arman`
-  * **Iz'aan:** `Iz'aan`
+  * **Iz'aan:** `Izaan`
 
 ### How to Work on Your Branch
 
