@@ -43,7 +43,7 @@ Open the newly created `.env` file and configure your database connection and an
 
 ```bash
 php artisan migrate
-# Might not perlu but just in case: php artisan db:seed
+# Might not perlu but just in case: php artisan db:seed (perlu, run the seeds)
 ```
 
 I forgot, run npm install also

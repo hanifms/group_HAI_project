@@ -1,9 +1,5 @@
 # CSP Implementation Guide for Travel Booking Application
 
-## What is CSP?
-
-Content Security Policy (CSP) is like a **security guard** for your website that controls what resources (scripts, styles, images, etc.) can be loaded and executed. Think of it as a bouncer at a club who checks everyone against a VIP list!
-
 ## Quick Setup Overview
 
 ### 1. Files That Make CSP Work
@@ -307,7 +303,7 @@ CSP_REPORT_ONLY=false
 
 ## Quick Debugging
 
-### If Your UI Breaks:
+### If Your Website Breaks:
 1. **Set `CSP_REPORT_ONLY=true`** in `.env`
 2. **Check browser console** for violation messages
 3. **Add missing sources** to `config/security.php`
