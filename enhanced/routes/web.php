@@ -4,18 +4,22 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Response;
 use App\Models\User;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+//Routing for robots.txt 
+Route::get('/robots.txt', function () {
+    return response("User-agent: *\nDisallow:", 200)
+        ->header('Content-Type', 'text/plain');
+});
 
-// Testing routes for Prevent MIME Sniffing (display raw text instead of executing JavaScript)
-Route::get('/malicious-file', function () {
-    return response()->file(public_path('malicious-file.js'), [
-        'Content-Type' => 'text/plain', // Incorrect MIME type
-    ]);
+Route::get('/sitemap.xml', function () {
+    return response('<?xml version="1.0"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>', 200)
+        ->header('Content-Type', 'application/xml');
 });
 
 
@@ -28,6 +32,7 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
+
 ])->group(function () {
     Route::get('/dashboard', function () {
         $user = Auth::user();
@@ -85,6 +90,5 @@ Route::middleware([
 
     // Review management routes
     Route::resource('reviews', \App\Http\Controllers\Admin\ReviewController::class)->only(['index', 'show']);
-
 
 });

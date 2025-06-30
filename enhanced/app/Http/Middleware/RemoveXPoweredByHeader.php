@@ -8,15 +8,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RemoveXPoweredByHeader
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
+
     public function handle(Request $request, Closure $next): Response
     {
+        header_remove("X-Powered-By");
+
         $response = $next($request);
 
         // Remove the X-Powered-By header
