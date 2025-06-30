@@ -77,6 +77,5 @@ Route::middleware([
     // Review management routes
     Route::resource('reviews', \App\Http\Controllers\Admin\ReviewController::class)->only(['index', 'show']);
 
-    Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 
 });
