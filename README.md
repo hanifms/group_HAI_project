@@ -723,9 +723,3 @@ Route::get('/sitemap.xml', function () {
         ->header('Content-Type', 'application/xml');
 });
 ```
-
-
-# Before"
-
-# After
-![alt text](image.png)
