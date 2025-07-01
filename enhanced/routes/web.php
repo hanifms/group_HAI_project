@@ -4,11 +4,25 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Response;
 use App\Models\User;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+//Routing for robots.txt 
+Route::get('/robots.txt', function () {
+    return response("User-agent: *\nDisallow:", 200)
+        ->header('Content-Type', 'text/plain');
+});
+
+Route::get('/sitemap.xml', function () {
+    return response('<?xml version="1.0"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>', 200)
+        ->header('Content-Type', 'application/xml');
+});
+
 
 // CSP Violation Reporting
 Route::post('/csp-report', function (Illuminate\Http\Request $request) {
@@ -31,6 +45,7 @@ Route::post('/csp-report', function (Illuminate\Http\Request $request) {
     return response('', 204); // No Content
 })->middleware('throttle:60,1');
 
+
 // Public Travel Package Routes - accessible to guests and authenticated users
 Route::get('/travel-packages', [App\Http\Controllers\User\TravelController::class, 'index'])->name('travel-packages.index');
 Route::get('/travel-packages/{travelPackage}', [App\Http\Controllers\User\TravelController::class, 'show'])->name('travel-packages.show');
@@ -40,6 +55,7 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
+
 ])->group(function () {
     Route::get('/dashboard', function () {
         $user = Auth::user();
@@ -97,6 +113,5 @@ Route::middleware([
 
     // Review management routes
     Route::resource('reviews', \App\Http\Controllers\Admin\ReviewController::class)->only(['index', 'show']);
-
 
 });

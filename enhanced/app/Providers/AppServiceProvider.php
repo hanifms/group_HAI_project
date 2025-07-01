@@ -12,6 +12,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\URL;
 use Carbon\Carbon;
+use App\Http\Middleware\PreventClickjacking;
+use App\Http\Middleware\PreventMIMESniffing;
+use App\Http\Middleware\RemoveXPoweredByHeader;
+
+
 
 /**
  * AppServiceProvider
@@ -61,6 +66,28 @@ class AppServiceProvider extends ServiceProvider
 
         // Define custom macros
         $this->defineCustomMacros();
+
+        // PREVENT CLICKJACKING
+
+
+        // Register the middleware globally
+        $this->app['router']->pushMiddlewareToGroup('web', PreventClickjacking::class);
+
+
+        // Prevent MIME Sniffing
+
+        // Apply PreventMIMESniffing middleware globally to 'web' routes group
+        $this->app['router']->pushMiddlewareToGroup('web', PreventMIMESniffing::class);
+
+
+        // Remove X-Powered-By header
+        $this->app['router']->pushMiddlewareToGroup('web', RemoveXPoweredByHeader::class);
+
+        // Keep the rest of your existing code intact...
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }        
+        
     }
 
     /**
