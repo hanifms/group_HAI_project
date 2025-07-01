@@ -90,7 +90,7 @@ return [
                 "'self'",
                 // Development compatibility - remove in production
                 "'unsafe-inline'", // Needed for Livewire and Alpine.js
-                // Note: 'unsafe-eval' removed for better security
+                "'unsafe-eval'",
                 // Popular CDNs for libraries
                 'https://cdn.jsdelivr.net',
                 'https://unpkg.com',
